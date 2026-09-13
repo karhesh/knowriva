@@ -1,0 +1,43 @@
+# Build output
+**/[Bb]in/
+**/[Oo]bj/
+
+# Visual Studio and VS Code
+.vs/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Test and coverage output
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Local databases and logs
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+logs/
+*.log
+
+# Local configuration and secrets
+.env
+.env.*
+appsettings.Local.json
+appsettings.*.Local.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
