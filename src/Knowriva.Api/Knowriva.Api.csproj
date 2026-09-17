@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Knowriva.Application\Knowriva.Application.csproj" />
     <ProjectReference Include="..\Knowriva.Infrastructure\Knowriva.Infrastructure.csproj" />
+    <ProjectReference Include="..\Knowriva.Contracts\Knowriva.Contracts.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
