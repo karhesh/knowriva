@@ -11,7 +11,5 @@ public sealed class CreateLearningGoalCommandValidator : AbstractValidator<Creat
 
         RuleFor(x => x.Description)
         .MaximumLength(1000);
-
-
     }
 }

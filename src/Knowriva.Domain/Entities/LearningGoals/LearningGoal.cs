@@ -9,6 +9,10 @@ public sealed class LearningGoal : Entity
     public DateTimeOffset CreatedAtUtc { get; private set; }
     public DateTimeOffset? UpdatedAtUtc { get; private set; }
 
+    private LearningGoal()
+    {
+    }
+
     private LearningGoal(string title, string? description, DateOnly? targetDate)
     {
         Title = title;
