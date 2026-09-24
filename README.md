@@ -18,11 +18,12 @@
 
 Knowriva is being built around a simple idea: learning becomes easier to manage when goals, subjects, resources, and progress are connected in one place.
 
-The API currently creates learning goals, validates requests, and saves goals to a local SQLite database. Features will be added incrementally on top of this foundation.
+The API currently creates and retrieves learning goals, validates creation requests, and saves goals to a local SQLite database. Features will be added incrementally on top of this foundation.
 
 ## Current capabilities
 
 - `POST /api/learning-goals` creates and saves a learning goal.
+- `GET /api/learning-goals/{id}` retrieves a saved goal or returns 404 when it does not exist.
 - FluentValidation rejects invalid creation requests before the command handler runs.
 - EF Core migrations manage the SQLite schema; the local database file is ignored by Git.
 - Domain, Application, Infrastructure, Contracts, and API projects have explicit references.
@@ -63,7 +64,7 @@ flowchart LR
 
 The platform is intended to grow through focused increments, including:
 
-- Reading and managing learning goals and skill areas.
+- Updating and managing learning goals and skill areas.
 - Topics, resources, and personal notes.
 - Progress entries and completion history.
 - Review reminders and learning streaks.
@@ -85,7 +86,7 @@ dotnet ef database update --project src/Knowriva.Infrastructure --startup-projec
 dotnet run --project src/Knowriva.Api/Knowriva.Api.csproj --launch-profile http
 ```
 
-The API listens on `http://localhost:5000` with the `http` profile. Send the example request in `requests/requests.http` to create a goal. The database is stored at `src/Knowriva.Api/knowriva.db` and is not committed.
+The API listens on `http://localhost:5000` with the `http` profile. In VS Code REST Client, send the POST request in `requests/requests.http` first, then the GET request; it uses the ID from the POST response. The database is stored at `src/Knowriva.Api/knowriva.db` and is not committed.
 
 ## Repository structure
 
