@@ -2,7 +2,6 @@
 
 
 ### Create learning goal
-# @name createLearningGoal
 POST {{baseUrl}}/api/learning-goals
 Content-Type: application/json
 
@@ -12,5 +11,8 @@ Content-Type: application/json
     "targetDate": "2026-12-31"
 }
 
-### Get created learning goal
-GET {{baseUrl}}/api/learning-goals/{{createLearningGoal.response.body.$.id}}
+### Get all learning goals
+GET {{baseUrl}}/api/learning-goals
+
+### Get learning goal
+GET {{baseUrl}}/api/learning-goals/1E13108A-E85C-4DCF-BC92-A74808065E87

@@ -6,4 +6,7 @@
     <Project Path="src/Knowriva.Domain/Knowriva.Domain.csproj" />
     <Project Path="src/Knowriva.Infrastructure/Knowriva.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Knowriva.Api.Tests/Knowriva.Api.Tests.csproj" />
+  </Folder>
 </Solution>
