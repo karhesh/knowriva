@@ -1,0 +1,18 @@
+@baseUrl = http://localhost:5000
+
+
+### Create learning goal
+POST {{baseUrl}}/api/learning-goals
+Content-Type: application/json
+
+{
+    "title": "Learn Something",
+    "description": "Test",
+    "targetDate": "2026-12-31"
+}
+
+### Get all learning goals
+GET {{baseUrl}}/api/learning-goals
+
+### Get learning goal
+GET {{baseUrl}}/api/learning-goals/1E13108A-E85C-4DCF-BC92-A74808065E87
