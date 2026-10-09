@@ -18,16 +18,19 @@
 
 Knowriva is being built around a simple idea: learning becomes easier to manage when goals, subjects, resources, and progress are connected in one place.
 
-The API currently creates and lists learning goals, retrieves individual goals, validates creation requests, and saves goals to a local SQLite database. Features will be added incrementally on top of this foundation.
+The API currently creates, lists, retrieves, and updates learning goals, validates creation and update requests, and saves goals to a local SQLite database. Features will be added incrementally on top of this foundation.
 
 ## Current capabilities
 
 - `POST /api/learning-goals` creates and saves a learning goal, returning `201 Created` and a link to it.
 - `GET /api/learning-goals` lists saved goals.
 - `GET /api/learning-goals/{id}` retrieves a saved goal or returns 404 when it does not exist.
-- FluentValidation rejects invalid creation requests before the command handler runs.
+- `PUT /api/learning-goals/{id}` updates a goal's title, description, and target date, returning `200 OK` with the updated goal or 404 when it does not exist.
+- FluentValidation rejects invalid creation and update requests with `400 Bad Request` before the command handler runs. Titles are required and limited to 200 characters; optional descriptions are limited to 1,000 characters.
 - EF Core migrations manage the SQLite schema; the local database file is ignored by Git.
 - Domain, Application, Infrastructure, Contracts, and API projects have explicit references.
+
+Updates replace all three editable fields. Send `null` for the description or target date to clear that value. The goal's ID and creation time stay unchanged, and its update timestamp is set after a successful edit.
 
 ## Architecture
 
@@ -66,7 +69,7 @@ flowchart LR
 
 The platform is intended to grow through focused increments, including:
 
-- Updating and managing learning goals and skill areas.
+- Goal status, completion, and archiving or deletion.
 - Topics, resources, and personal notes.
 - Progress entries and completion history.
 - Review reminders and learning streaks.
@@ -88,7 +91,7 @@ dotnet ef database update --project src/Knowriva.Infrastructure --startup-projec
 dotnet run --project src/Knowriva.Api/Knowriva.Api.csproj --launch-profile http
 ```
 
-The API listens on `http://localhost:5000` with the `http` profile. Use `requests/requests.http` in VS Code REST Client to create or list goals. To retrieve one goal, replace the example ID in the final request with an ID returned by the POST or list response. The database is stored at `src/Knowriva.Api/knowriva.db` and is not committed.
+The API listens on `http://localhost:5000` with the `http` profile. Use `requests/requests.http` in VS Code REST Client to create, list, retrieve, or update goals. Replace the example IDs in the GET-by-ID and PUT requests with an ID returned by the POST or list response. The database is stored at `src/Knowriva.Api/knowriva.db` and is not committed.
 
 ## Tests
 
@@ -98,12 +101,16 @@ Run the API integration tests from the repository root:
 dotnet test Knowriva.slnx
 ```
 
-The tests exercise goal creation, listing, lookup, and validation through HTTP. Each test uses its own temporary SQLite database and applies the EF Core migrations.
+The tests exercise goal creation, listing, lookup, updating, and validation through HTTP. Update coverage checks saved changes, unchanged IDs and creation times, rejected updates that leave data unchanged, missing goals, and clearing optional values. Each test uses its own temporary SQLite database and applies the EF Core migrations.
+
+GitHub Actions automatically restores the solution, builds it in Release configuration, and runs the tests for pull requests targeting `main` and pushes to `main`. The workflow is defined in [`.github/workflows/dotnet.yml`](.github/workflows/dotnet.yml).
 
 ## Repository structure
 
 ```text
 Knowriva/
+├── .github/workflows/
+│   └── dotnet.yml
 ├── src/
 │   ├── Knowriva.Api/
 │   ├── Knowriva.Application/

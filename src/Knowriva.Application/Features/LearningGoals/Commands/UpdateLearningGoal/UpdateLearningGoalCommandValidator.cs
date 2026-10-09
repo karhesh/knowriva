@@ -1,0 +1,16 @@
+using FluentValidation;
+
+namespace Knowriva.Application.Features.LearningGoals.Commands.UpdateLearningGoal;
+
+public sealed class UpdateLearningGoalCommandValidator : AbstractValidator<UpdateLearningGoalCommand>
+{
+    public UpdateLearningGoalCommandValidator()
+    {
+        RuleFor(x => x.Title)
+        .NotEmpty().WithMessage("Title is required")
+        .MaximumLength(200);
+
+        RuleFor(x => x.Description)
+        .MaximumLength(1000);
+    }
+}

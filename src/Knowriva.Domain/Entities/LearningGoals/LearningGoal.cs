@@ -25,5 +25,12 @@ public sealed class LearningGoal : Entity
     {
         return new LearningGoal(title, description, targetDate);
     }
+    public void UpdateDetails(string title, string? description, DateOnly? targetDate)
+    {
+        Title = title;
+        Description = description;
+        TargetDate = targetDate;
+        UpdatedAtUtc = DateTimeOffset.UtcNow;
+    }
 
 }
