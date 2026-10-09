@@ -6,13 +6,23 @@ POST {{baseUrl}}/api/learning-goals
 Content-Type: application/json
 
 {
-    "title": "Learn Something",
-    "description": "Test",
-    "targetDate": "2026-12-31"
+    "title": "Learn Something2",
+    "description": "Test2",
+    "targetDate": "2026-12-30"
 }
 
 ### Get all learning goals
 GET {{baseUrl}}/api/learning-goals
 
 ### Get learning goal
-GET {{baseUrl}}/api/learning-goals/1E13108A-E85C-4DCF-BC92-A74808065E87
+GET {{baseUrl}}/api/learning-goals/d31a7b9b-c67a-41ec-8a33-a1ec46432032
+
+### Update learning goal
+PUT {{baseUrl}}/api/learning-goals/d31a7b9b-c67a-41ec-8a33-a1ec46432032
+Content-Type: application/json
+
+{
+    "title": "Learn Something3",
+    "description": "Test2",
+    "targetDate": "2026-12-30"
+}
